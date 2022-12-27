@@ -15,7 +15,8 @@
 
 ```
 Setup examples:
-...
+
+Nothing at the moment
 ```
 
 ## Install
