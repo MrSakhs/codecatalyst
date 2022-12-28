@@ -58,3 +58,4 @@ Actions:
       Name: codecatalyst-artifact-environment
       Connections:
         - Name: 951199910354
+          Role: codecatalyst-s3-build-role
