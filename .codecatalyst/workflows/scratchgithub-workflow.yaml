@@ -15,6 +15,7 @@ Actions:
     Configuration:
       Steps:
         - Run: echo "Hello, World!"
+        - Run: echo "Hello, Sakhile" > "Sakhile.txt"
         - Run: echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" >> report.xml
         - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
         - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
@@ -22,4 +23,33 @@ Actions:
     Outputs:
       AutoDiscoverReports:
         Enabled: true
-        ReportNamePrefix: rpt 
+        ReportNamePrefix: rpt
+
+  GenerateFiles:
+    Identifier: aws/build@v1
+    Configuration:
+      Steps:
+        - Run: echo "Goodbye!" > "Goodbye.txt"
+    Outputs:
+      Artifacts:
+        - Name: codecatalystArtifact
+          Files: 
+            - Sakhile.txt
+            - report.xml
+            - Goodbye.txt
+
+  Upload: 
+    Identifier: aws/build@v1
+    DependsOn:
+      - GenerateFiles
+    Inputs:
+      Artifacts:
+        - codecatalystArtifact
+    Configuration:
+      Steps:
+        - Run: aws s3 sync . s3://codecatalyst-us-west-2-bucket
+    Environment:
+      Name: codecatalyst-artifact-environment
+      Connections:
+        - Name: 951199910354
+          Role: codecatalyst-s3-build-role
