@@ -15,10 +15,10 @@ Actions:
     Configuration:
       Steps:
         - Run: echo "Hello, World!"
-        - Run: echo "Hello, Sakhile" > "Sakhile.txt"
+        - Run: echo "Hello, Sakhile Harvey Masoka" > "Sakhile.txt"
         - Run: echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" >> report.xml
-        - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
-        - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
+        - Run: echo "<testsuite tests=\"2\" name=\"TestAgentJunit\" >" >> report.xml
+        - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy Dummy Again
             Test\"/></testsuite>" >> report.xml
     Outputs:
       AutoDiscoverReports:
@@ -34,7 +34,7 @@ Actions:
     Identifier: aws/build@v1
     Configuration:
       Steps:
-        - Run: echo "Goodbye Boyzin!" > "Goodbye.txt"
+        - Run: echo "Goodbye Boyzin! Habashwe" > "Goodbye.txt"
     Outputs:
       Artifacts:
         - Name: GenerateFiles_Artifact
@@ -51,9 +51,10 @@ Actions:
         - GenerateFiles_Artifact
     Configuration:
       Steps:
-        - Run: aws s3 sync . s3://codecatalyst-us-west-2-bucket
+        # Artifacts from source artifact directories
+        - Run: aws s3 sync $CATALYST_SOURCE_DIR_Build_CICD_Artifact s3://codecatalyst-us-west-2-bucket
+        - Run: aws s3 sync $CATALYST_SOURCE_DIR_GenerateFiles_Artifact s3://codecatalyst-us-west-2-bucket
     Environment:
       Name: codecatalyst-artifact-environment
       Connections:
         - Name: 951199910354
-          Role: codecatalyst-s3-build-role
