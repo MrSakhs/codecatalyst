@@ -24,6 +24,11 @@ Actions:
       AutoDiscoverReports:
         Enabled: true
         ReportNamePrefix: rpt
+      Artifacts:
+        - Name: codecatalystArtifact
+          Files: 
+            - Sakhile.txt
+            - report.xml
 
   GenerateFiles:
     Identifier: aws/build@v1
@@ -34,8 +39,6 @@ Actions:
       Artifacts:
         - Name: codecatalystArtifact
           Files: 
-            - Sakhile.txt
-            - report.xml
             - Goodbye.txt
 
   Upload: 
