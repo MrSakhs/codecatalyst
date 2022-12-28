@@ -25,7 +25,7 @@ Actions:
         Enabled: true
         ReportNamePrefix: rpt
       Artifacts:
-        - Name: codecatalystArtifact
+        - Name: Build_CICD_Artifact
           Files: 
             - Sakhile.txt
             - report.xml
@@ -34,10 +34,10 @@ Actions:
     Identifier: aws/build@v1
     Configuration:
       Steps:
-        - Run: echo "Goodbye!" > "Goodbye.txt"
+        - Run: echo "Goodbye Boyzin!" > "Goodbye.txt"
     Outputs:
       Artifacts:
-        - Name: codecatalystArtifact
+        - Name: GenerateFiles_Artifact
           Files: 
             - Goodbye.txt
 
@@ -47,7 +47,8 @@ Actions:
       - GenerateFiles
     Inputs:
       Artifacts:
-        - codecatalystArtifact
+        - Build_CICD_Artifact
+        - GenerateFiles_Artifact
     Configuration:
       Steps:
         - Run: aws s3 sync . s3://codecatalyst-us-west-2-bucket
